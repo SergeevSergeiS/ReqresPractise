@@ -7,6 +7,21 @@ import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.is;
 
 public class ReqresinTests {
+
+
+    @Test
+    void deleteTest() {
+        given()
+                .log().uri()
+                .log().body()
+                .when()
+                .delete("https://reqres.in/api/users/2")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(204);
+    }
+
     @Test
     void registerTest() {
         String body = "{ \"email\": \"eve.holt@reqres.in\", " +
