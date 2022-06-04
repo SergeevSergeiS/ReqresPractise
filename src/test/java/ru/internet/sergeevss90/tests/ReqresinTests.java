@@ -7,7 +7,23 @@ import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.is;
 
 public class ReqresinTests {
+    @Test
+    void patchTest() {
+        String body = "{ \"name\": \"morpheus\", \"job\": \"zion resident\" }";
 
+        given()
+                .log().uri()
+                .log().body()
+                .body(body)
+                .contentType(JSON)
+                .when()
+                .patch("https://reqres.in/api/users/2")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(200)
+                .body("name", is("morpheus"));
+    }
 
     @Test
     void deleteTest() {
