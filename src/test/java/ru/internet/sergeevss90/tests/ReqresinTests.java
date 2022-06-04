@@ -8,6 +8,19 @@ import static org.hamcrest.Matchers.is;
 
 public class ReqresinTests {
     @Test
+    void resourceNotFoundTest() {
+        given()
+                .log().uri()
+                .log().body()
+                .when()
+                .get("https://reqres.in/api/unknown/23")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(404);
+    }
+
+    @Test
     void patchTest() {
         String body = "{ \"name\": \"morpheus\", \"job\": \"zion resident\" }";
 
