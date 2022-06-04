@@ -1,0 +1,38 @@
+plugins {
+    id "java-library"
+    id "io.qameta.allure" version "2.9.6"
+}
+
+repositories {
+    mavenCentral()
+}
+
+def junitVersion = "5.8.2",
+    slf4jVersion = "1.7.36",
+    restAssuredVersion = "5.1.0"
+
+dependencies {
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+            "org.slf4j:slf4j-simple:$slf4jVersion",
+            "io.rest-assured:rest-assured:$restAssuredVersion"
+    )
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+
+    systemProperty "chromeoptions.prefs", "intl.accept_languages=ru"
+
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
